@@ -15,6 +15,7 @@ namespace CarApp
         public Form1()
         {
             InitializeComponent();
+            tbxRegNr.Focus();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -28,6 +29,36 @@ namespace CarApp
         }
 
         private void tbxMake_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxModel_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxYear_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbxForSale_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lsvCars_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

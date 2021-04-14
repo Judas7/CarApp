@@ -33,7 +33,7 @@
             this.tbxYear = new System.Windows.Forms.TextBox();
             this.tbxModel = new System.Windows.Forms.TextBox();
             this.tbxRegNr = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lsvCars = new System.Windows.Forms.ListView();
             this.cbxForSale = new System.Windows.Forms.CheckBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.regnr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -63,6 +63,7 @@
             this.tbxYear.Name = "tbxYear";
             this.tbxYear.Size = new System.Drawing.Size(100, 26);
             this.tbxYear.TabIndex = 1;
+            this.tbxYear.TextChanged += new System.EventHandler(this.tbxYear_TextChanged);
             // 
             // tbxModel
             // 
@@ -70,6 +71,7 @@
             this.tbxModel.Name = "tbxModel";
             this.tbxModel.Size = new System.Drawing.Size(100, 26);
             this.tbxModel.TabIndex = 2;
+            this.tbxModel.TextChanged += new System.EventHandler(this.tbxModel_TextChanged);
             // 
             // tbxRegNr
             // 
@@ -79,18 +81,19 @@
             this.tbxRegNr.TabIndex = 3;
             this.tbxRegNr.TextChanged += new System.EventHandler(this.tbxRegNr_TextChanged);
             // 
-            // listView1
+            // lsvCars
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lsvCars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.regnr,
             this.make,
             this.forsale});
-            this.listView1.Location = new System.Drawing.Point(12, 132);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(776, 266);
-            this.listView1.TabIndex = 4;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lsvCars.Location = new System.Drawing.Point(12, 132);
+            this.lsvCars.Name = "lsvCars";
+            this.lsvCars.Size = new System.Drawing.Size(776, 266);
+            this.lsvCars.TabIndex = 4;
+            this.lsvCars.UseCompatibleStateImageBehavior = false;
+            this.lsvCars.View = System.Windows.Forms.View.Details;
+            this.lsvCars.SelectedIndexChanged += new System.EventHandler(this.lsvCars_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -119,6 +122,7 @@
             this.cbxForSale.TabIndex = 4;
             this.cbxForSale.Text = "Till Salu";
             this.cbxForSale.UseVisualStyleBackColor = true;
+            this.cbxForSale.CheckedChanged += new System.EventHandler(this.cbxForSale_CheckedChanged);
             // 
             // btnAdd
             // 
@@ -152,6 +156,7 @@
             this.btnClearAll.TabIndex = 6;
             this.btnClearAll.Text = "Rensa bort all data";
             this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // btnRemove
             // 
@@ -161,6 +166,7 @@
             this.btnRemove.TabIndex = 7;
             this.btnRemove.Text = "Ta bort markerad";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // label1
             // 
@@ -206,7 +212,7 @@
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnClearAll);
             this.Controls.Add(groupBox1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lsvCars);
             this.Name = "Form1";
             this.Text = "Bilar";
             groupBox1.ResumeLayout(false);
@@ -221,7 +227,7 @@
         private System.Windows.Forms.TextBox tbxYear;
         private System.Windows.Forms.TextBox tbxModel;
         private System.Windows.Forms.TextBox tbxRegNr;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lsvCars;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.CheckBox cbxForSale;
         private System.Windows.Forms.ColumnHeader regnr;
