@@ -7,14 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace CarApp
 {
     public partial class Form1 : Form
     {
+
+        Database dbObject = new Database();
         public Form1()
         {
             InitializeComponent();
+            InitListView();
             tbxRegNr.Focus();
         }
 
@@ -26,13 +32,22 @@ namespace CarApp
             }
             else
             {
-                ListViewItem item = CreateListViewItem(tbxRegNr.Text, tbxMake.Text, cbxForSale.Checked);
-                lsvCars.Items.Add(item);
+                Car car = new Car(tbxRegNr.Text, tbxMake.Text, tbxModel.Text, Convert.ToInt32(tbxYear.Text), cbxForSale.Checked);
+                AddCarToListView(car);
+
+                int result = dbObject.AddCarRow(car);
+                MessageBox.Show("Du har lagt till " + Convert.ToString(result) + " antal bilar");
+
                 ClearTextBoxes();
                 btnClearAll.Enabled = true;
             }
         }
 
+        private void AddCarToListView(Car car)
+        {
+            ListViewItem item = CreateListViewItem(car);
+            lsvCars.Items.Add(item);
+        }
         private void tbxRegNr_TextChanged(object sender, EventArgs e)
         {
 
@@ -66,11 +81,20 @@ namespace CarApp
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if(lsvCars.SelectedItems.Count > 0)
+            int res = dbObject.RemoveCarByRegNr(lsvCars.SelectedItems[0].Text);
+            MessageBox.Show("Du har tagit bort " + Convert.ToString(res) + " antal bilar från databasen");
+            if(res > 0)
             {
-                var item = lsvCars.SelectedItems[0];
-                lsvCars.Items.Remove(item);
-                MessageBox.Show("Bilen med registeringsnummer " + item.Text + " är borttagen", "Borttag av bil");
+                RemoveCarFromListView(lsvCars.SelectedItems[0]);
+            }
+        }
+
+        private void RemoveCarFromListView(ListViewItem listViewitem)
+        {
+            if (lsvCars.SelectedItems.Count > 0)
+            {
+                lsvCars.Items.Remove(listViewitem);
+                MessageBox.Show("Bilen med registreringsnummer " + listViewitem.Text + " är borttagen", "Borttag av bil");
             }
             else
             {
@@ -100,6 +124,19 @@ namespace CarApp
             tbxYear.Clear();
             cbxForSale.Checked = false;
             tbxRegNr.Focus();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbxRegNr.Text))
+            {
+                tbxRegNr.Text = tbxRegNr.Text.ToUpper();
+                PrintData(tbxRegNr.Text);
+            }
+            else
+            {
+                MessageBox.Show("Du måste ange ett registreringsnummer", "Inmatning Saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

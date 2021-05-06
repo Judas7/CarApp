@@ -45,12 +45,14 @@
             this.forsale = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(this.btnSearch);
             groupBox1.Controls.Add(this.label4);
             groupBox1.Controls.Add(this.label3);
             groupBox1.Controls.Add(this.label2);
@@ -63,7 +65,7 @@
             groupBox1.Controls.Add(this.tbxModel);
             groupBox1.Location = new System.Drawing.Point(27, 14);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(751, 112);
+            groupBox1.Size = new System.Drawing.Size(751, 148);
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             // 
@@ -162,7 +164,7 @@
             this.regnr,
             this.make,
             this.forsale});
-            this.lsvCars.Location = new System.Drawing.Point(12, 132);
+            this.lsvCars.Location = new System.Drawing.Point(12, 168);
             this.lsvCars.Name = "lsvCars";
             this.lsvCars.Size = new System.Drawing.Size(776, 266);
             this.lsvCars.TabIndex = 4;
@@ -186,7 +188,7 @@
             // 
             // btnClearAll
             // 
-            this.btnClearAll.Location = new System.Drawing.Point(12, 409);
+            this.btnClearAll.Location = new System.Drawing.Point(12, 443);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(153, 34);
             this.btnClearAll.TabIndex = 6;
@@ -196,7 +198,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(606, 409);
+            this.btnRemove.Location = new System.Drawing.Point(606, 443);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(182, 34);
             this.btnRemove.TabIndex = 7;
@@ -204,11 +206,21 @@
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(579, 107);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(148, 32);
+            this.btnSearch.TabIndex = 10;
+            this.btnSearch.Text = "Sök i Biluppgifter";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 496);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnClearAll);
             this.Controls.Add(groupBox1);
@@ -239,6 +251,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 

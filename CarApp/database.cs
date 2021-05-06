@@ -8,7 +8,7 @@ using System.IO;
 
 namespace CarApp
 {
-    class database
+    class Database
     {
         public SQLiteConnection dbConn;
         private string databaseFilename = "./car.db";
@@ -19,7 +19,7 @@ namespace CarApp
             {
                 File.Create(databaseFilename);
             }
-            dbConn = new SQLiteConnection("Data Source=" + databaseFilename); 
+            dbConn = new SQLiteConnection("Data Source=" + databaseFilename);
 
         }
 
@@ -97,6 +97,22 @@ namespace CarApp
             OpenConnection();
 
             dbCommand.Parameters.AddWithValue(@"regNr", regNr);
+
+            int result = dbCommand.ExecuteNonQuery();
+            CloseConnection();
+            return result;
+        }
+
+        public int RemoveAllCars()
+        {
+            string qDelete = "DELETE FROM car;";
+
+            SQLiteCommand dbCommand = new SQLiteCommand(qDelete, dbConn);
+            OpenConnection();
+
+            int result = dbCommand.ExecuteNonQuery();
+            CloseConnection();
+            return result;
         }
     }
 }
