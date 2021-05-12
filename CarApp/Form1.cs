@@ -75,7 +75,16 @@ namespace CarApp
 
         private void btnClearAll_Click(object sender, EventArgs e)
         {
-            lsvCars.Items.Clear();
+            int res = dbObject.RemoveAllCars();
+            if (res == lsvCars.Items.Count)
+            {
+                lsvCars.Items.Clear();
+            }
+            else
+            {
+                lsvCars.Items.Clear();
+                InitListView();
+            }
             tbxRegNr.Focus();
         }
 
@@ -108,11 +117,13 @@ namespace CarApp
             btnRemove.Enabled = (lsvCars.SelectedItems.Count > 0);
         }
 
-        private ListViewItem CreateListViewItem(string regNr, string make, bool forSale)
+        private ListViewItem CreateListViewItem(Car car)
         {
-            ListViewItem item = new ListViewItem(regNr);
-            item.SubItems.Add(make);
-            item.SubItems.Add(forSale ? "Yes" : "No");
+            ListViewItem item = new ListViewItem(car.GetRegNr());
+            item.SubItems.Add(car.GetMake());
+            item.SubItems.Add(car.GetModel());
+            item.SubItems.Add(car.GetYear().ToString());
+            item.SubItems.Add(car.GetForSale() ? "Yes" : "No");
             return item;
         }
 
@@ -138,5 +149,60 @@ namespace CarApp
                 MessageBox.Show("Du måste ange ett registreringsnummer", "Inmatning Saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void PrintData(string regNr)
+        {
+
+
+            string token = "ZYdERdMQ1BLgQ9DP6hwZpO7ScLeXcJUm";
+            string call = String.Format($"https://api.biluppgifter.se/api/v1/vehicle/regno/{regNr}?api_token={token}");
+
+
+
+            try
+            {
+                // Skapa objekt för att skicka en fråga till bilregistret
+                WebRequest request = HttpWebRequest.Create(call);
+
+
+
+                // Skapa ett svarsobjekt
+                WebResponse response = request.GetResponse();
+
+
+
+                // Läs av "the stream" som är i responsen
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+
+
+
+                string carJSON = reader.ReadToEnd();
+
+                JObject jsonCar = JObject.Parse(carJSON);
+
+
+
+                tbxMake.Text = jsonCar["data"]["basic"]["data"]["make"].ToString();
+                tbxModel.Text = jsonCar["data"]["basic"]["data"]["model"].ToString();
+                tbxYear.Text = jsonCar["data"]["basic"]["data"]["model_year"].ToString();
+
+
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Bil med registreringsnummer {regNr} kunde inte hittas\n\nMeddelande: {e.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        private void InitListView()
+        {
+            List<Car> listOfCars = dbObject.GetRowsFromCar();
+            foreach (var item in listOfCars)
+            {
+                AddCarToListView(item);
+            }
+        }
+
     }
 }
